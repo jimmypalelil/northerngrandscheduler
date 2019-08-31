@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Insert Time</h2>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>From</mat-label>
+    <mat-select [(value)]="from" (valueChange)="handleFromSelect()">
+      <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>To</mat-label>
+    <mat-select [(value)]="to">
+      <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="sendTime()" cdkFocusInitial>Ok</button>
+</div>

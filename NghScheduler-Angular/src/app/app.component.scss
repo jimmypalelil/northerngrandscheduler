@@ -1,0 +1,131 @@
+.dates {
+  mat-form-field {
+    margin: 0 1em;
+  }
+}
+
+.action-buttons {
+  button {
+    background-image: linear-gradient(45deg, black, #f3050587);
+    color: white;
+    margin: 0 1em;
+  }
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead {
+  font-weight: bold;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.status-OFF {
+  button {
+    font-style: italic;
+  }
+}
+.status-Vacation {
+  button {
+    font-style: oblique;
+  }
+}
+.status-time {
+  button {
+    font-weight: bold;
+    color: black;
+  }
+}
+
+.status-Stat {
+  button {
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+}
+
+@media print {
+  mat-card {
+    box-shadow: unset !important;
+  }
+  .no-print {
+    display: none;
+  }
+  .status-OFF {
+    color: #00000080 !important;
+  }
+  .status-Vacation {
+    color: #a5878769 !important;
+    button {
+      font-weight: 400;
+      text-decoration: underline;
+    }
+  }
+  .status-time {
+    color: black !important;
+  }
+  .status-Stat {
+    background-color: #184188;
+  }
+}
+
+.employee-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  i {
+    cursor: pointer;
+  }
+}
+
+@media screen {
+  .status-OFF {
+    color: white !important;
+    background-color: rgba(222, 33, 33, 0.97);;
+    font-style: italic;
+  }
+  .status-Vacation {
+    color: white !important;
+    background-color: #599852 !important;
+    font-style: oblique;
+  }
+  .status-time {
+    font-weight: bolder;
+    color: black !important;
+    border: 5px solid hotpink;
+  }
+  .status-Stat {
+    color: white !important;
+    background-color: #184188;
+  }
+}
+
+mat-card-title {
+  text-align: center;
+  margin: 1em 0;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.grand-total {
+  font-weight: bolder;
+  text-decoration: underline;
+}
+
+.schedule-stats {
+  background-color: black;
+  color: white;
+}

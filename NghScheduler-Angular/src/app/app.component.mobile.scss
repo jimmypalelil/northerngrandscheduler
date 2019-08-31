@@ -1,0 +1,16 @@
+@media (max-width: 1000px) {
+  mat-card {
+    width: fit-content;
+  }
+
+  .action-buttons {
+    mat-form-field {
+      width: 100px;
+    }
+    button {
+      font-size: inherit;
+      width: fit-content;
+      padding: 0 .4em;
+    }
+  }
+}

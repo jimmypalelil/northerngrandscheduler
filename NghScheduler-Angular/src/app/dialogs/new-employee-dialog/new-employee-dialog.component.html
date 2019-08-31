@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{title}} Employee</h1>
+<div mat-dialog-content>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.name" cdkFocusInitial placeholder="Employee Name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.wage" placeholder="Hourly Wage" type="number" min="0" max="20" />
+  </mat-form-field>
+
+  <h3 mat-dialog-title>Set Preferred Time</h3>
+
+  <mat-form-field>
+    <mat-label>From</mat-label>
+    <mat-select [(value)]="data.from" (valueChange)="handleFromSelect()">
+      <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>To</mat-label>
+    <mat-select [(value)]="data.to">
+      <mat-option *ngFor="let time of times" [value]="time">{{time}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data">Ok</button>
+</div>
+

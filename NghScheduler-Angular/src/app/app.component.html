@@ -1,0 +1,107 @@
+<mat-card>
+  <mat-card-content>
+    <div class="header no-print">
+    <span class="dates">
+      <mat-form-field>
+        <input matInput (dateChange)="getScheduleForDate()" [matDatepicker]="dp" placeholder="From" [formControl]="date">
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input placeholder="To" disabled matInput [value]="toDate" />
+      </mat-form-field>
+    </span>
+
+      <span class="action-buttons">
+
+      <button [disabled]="!isAdmin" mat-raised-button (click)="addEmployee()">
+        <i class="material-icons">person_add</i> Add Employee
+      </button>
+
+      <ng-container *ngIf="!isAdmin; else showLogout">
+        <button mat-raised-button (click)="login()">Login</button>
+      </ng-container>
+
+      <ng-template #showLogout>
+        <button mat-raised-button (click)="logout()">Logout</button>
+      </ng-template>
+
+      <button mat-raised-button (click)="print()"><i class="material-icons">print</i> Print</button>
+    </span>
+    </div>
+
+    <mat-card-title>
+      {{scheduleTitle}}
+    </mat-card-title>
+
+    <div class="schedule-container">
+      <table class="schedule-table">
+        <thead>
+        <tr>
+          <td>Names</td>
+          <td *ngFor="let day of daysOfWeek">{{day | uppercase}}</td>
+
+          <ng-container *ngIf="isAdmin">
+            <td class="no-print schedule-stats">Total Hours</td>
+            <td class="no-print schedule-stats">Wage</td>
+            <td class="no-print schedule-stats">Labour Cost</td>
+          </ng-container>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let emp of employees; let rowIndex = index">
+          <td>
+            <span class="employee-name">
+              <span>{{emp['name']}}</span>
+
+              <ng-container *ngIf="isAdmin">
+                <button mat-button [disabled]="!isAdmin" [matMenuTriggerFor]="empMenu" class="no-print">
+                  <i class="material-icons">settings</i>
+                 </button>
+
+              <mat-menu #empMenu="matMenu">
+                <button mat-menu-item (click)="editEmployee(emp)">Edit</button>
+                <button mat-menu-item (click)="deleteEmployee(emp['_id'])">Remove</button>
+              </mat-menu>
+              </ng-container>
+            </span>
+          </td>
+
+          <td *ngFor="let day of daysOfWeek; let i = index" class="{{getStatusStyles(schedule[rowIndex][i].status)}}">
+
+            <button mat-button [disabled]="!isAdmin" [matMenuTriggerFor]="menu">
+              {{schedule[rowIndex][i].status}}
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item *ngFor="let status of statuses"
+                      (click)="handleStatus(schedule[rowIndex][i], rowIndex, status)">
+                {{status}}
+              </button>
+            </mat-menu>
+          </td>
+
+          <ng-container *ngIf="isAdmin">
+            <td class="no-print schedule-stats">{{getTotalWeekHours(schedule[rowIndex], rowIndex)}}</td>
+
+            <td class="no-print schedule-stats">{{emp['wage']}}</td>
+
+            <td class="no-print schedule-stats">{{emp['wage'] * allEmployeeTotalHrs[rowIndex]}}</td>
+          </ng-container>
+        </tr>
+
+        <tr class="grand-total no-print" *ngIf="isAdmin">
+          <td colspan="7"></td>
+          <td>Total Hours</td>
+          <td>{{getGrandTotalHrs()}}</td>
+
+          <td>Total Cost</td>
+          <td>{{getTotalCost()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
